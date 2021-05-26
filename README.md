@@ -1,64 +1,82 @@
-# JavaScript Chess
+# chessboard.js
 
-This program is a JavaScript implementation of the board game [Chess](http://en.wikipedia.org/wiki/Chess), with a computer player opponent. All move types are supported, including en passant, castling and promotion.
+chessboard.js is a JavaScript chessboard component. It depends on [jQuery].
 
-Try it out [here](http://www.iki.fi/kbjorklu/chess/). Usage is shown below the chessboard. At least Internet Explorer (8 or later), Chrome and Firefox should work.
+Please see [chessboardjs.com] for documentation and examples.
 
-# Code Structure
+## What is chessboard.js?
 
-Source files are placed in the `src` directory. Minification and linting files are placed in the `build` directory. Source file contents:
+chessboard.js is a JavaScript chessboard component with a flexible "just a
+board" API that
 
-* `chess.js`: Constants, utilities and the Chess namespace.
-* `bitboard.js`: 64-bit bit twiddling tools.
-* `zobrist.js`: Game state hash calculator. Currently only used for the threefold repetition rule, but will be used in the transposition table implementation.
-* `move.js`: Piece movement representation.
-* `position.js`: Chess game state and mutation.
-* `parser.js`: Parser for various Chess notations.
-* `ai.js`: Artificial intelligence, i.e. computer opponent. Basic alpha-beta pruned minimax with a simple evaluation function.
-* `ui.js`: User interface code.
-* `chess.include.js`: Includes all of the above files.
-* `chess.css`: User interface style.
-* `chess.ico`: Icon.
-* `chess.html`: Main game file.
-* `test.js`: Automated tests.
-* `test.html`: Automated test runner.
+chessboard.js is a standalone JavaScript Chess Board. It is designed to be "just
+a board" and expose a powerful API so that it can be used in different ways.
+Here's a non-exhaustive list of things you can do with chessboard.js:
 
-# Building
+- Use chessboard.js to show game positions alongside your expert commentary.
+- Use chessboard.js to have a tactics website where users have to guess the best
+  move.
+- Integrate chessboard.js and [chess.js] with a PGN database and allow people to
+  search and playback games (see [Example 5000])
+- Build a chess server and have users play their games out using the
+  chessboard.js board.
 
-To compile the minified version using `compile.sh` in the `build` directory, you need [bash](http://git-scm.com/download/win) and the [Closure compiler](https://developers.google.com/closure/compiler/). You may need to adjust the `.jar` location in `compile.sh`. Compiled files are placed in the top-level directory.
+chessboard.js is flexible enough to handle any of these situations with relative
+ease.
 
-To lint using `lint.sh` in the build directory, you need bash and [JavaScript Lint](http://www.javascriptlint.com/). You may need to adjust lint's path in `lint.sh`.
+## What can chessboard.js **not** do?
 
-To run the tests, open `test.html` in the `src` directory.
+The scope of chessboard.js is limited to "just a board." This is intentional and
+makes chessboard.js flexible for handling a multitude of chess-related problems.
 
-# TODO
+This is a common source of confusion for new users. [remove?]
 
-* Static exchange evaluation
-* Transposition table
-* Iterative deepening
-* Negamax formulation
-* AI randomness
-* Take game phase into account in evaluation
-* Take mobility into account in evaluation
-* Killer heuristic
-* Late-check castling legality
-* Tie-detection
-* Move pieces without drag and drop
-* Underpromotion
-* Show captured pieces in the UI
-* Don't hardcode board target div to UI
-* UI for loading game state from parsable Chess notation(s)
-* More tests
+Specifically, chessboard.js does not understand anything about how the game of
+chess is played: how a knight moves, who's turn is it, is White in check?, etc.
 
-# License
+Fortunately, the powerful [chess.js] library deals with exactly this sort of
+problem domain and plays nicely with chessboard.js's flexible API. Some examples
+of chessboard.js combined with chess.js: 5000, 5001, 5002
 
-The Chess implementation is distributed under the [MIT](https://github.com/kbjorklu/chess/blob/master/LICENSE) license. See accompanying LICENSE file for details.
+Please see the powerful [chess.js] library for an API to deal with these sorts
+of questions.
 
-Third-party components are distributed/used under their respective license:
 
-* jQuery: [MIT](https://github.com/jquery/jquery/blob/master/MIT-LICENSE.txt) (used via jQuery CDN)
-* jQuery UI: [MIT](https://github.com/jquery/jquery-ui/blob/master/MIT-LICENSE.txt) (used via jQuery CDN)
-* jQuery UI Touch Punch: [MIT](https://github.com/furf/jquery-ui-touch-punch/blob/master/jquery.ui.touch-punch.min.js) (used via CloudFlare CDN)
-* Augment.js: [MIT](https://github.com/olivernn/augment.js/blob/master/LICENSE) (used via CloudFlare CDN)
-* QUnit: [MIT](https://github.com/jquery/qunit/blob/master/MIT-LICENSE.txt) (used via jQuery CDN)
-* The jQuery extern file in the build directory: [Apache 2](http://www.apache.org/licenses/LICENSE-2.0)
+This logic is distinct from the logic of the board. Please see the powerful
+[chess.js] library for this aspect of your application.
+
+
+
+Here is a list of things that chessboard.js is **not**:
+
+- A chess engine
+- A legal move validator
+- A PGN parser
+
+chessboard.js is designed to work well with any of those things, but the idea
+behind chessboard.js is that the logic that controls the board should be
+independent of those other problems.
+
+## Docs and Examples
+
+- Docs - <http://chessboardjs.com/docs>
+- Examples - <http://chessboardjs.com/examples>
+
+## Developer Tools
+
+```sh
+# create a build in the build/ directory
+npm run build
+
+# re-build the website
+npm run website
+```
+
+## License
+
+[MIT License](LICENSE.md)
+
+[jQuery]:https://jquery.com/
+[chessboardjs.com]:http://chessboardjs.com
+[chess.js]:https://github.com/jhlywa/chess.js
+[Example 5000]:http://chessboardjs.com/examples#5000
