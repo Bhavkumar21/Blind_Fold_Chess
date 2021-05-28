@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css" integrity="sha384-q94+BZtLrkL1/ohfjR8c6L+A6qzNH9R2hBLwyoAfu3i/WCvQjzL2RQJ3uNHDISdU" crossorigin="anonymous">
 </head>
 <body>
+<div class="alan-btn"></div>
 <p><a href="examples#5002">&larr; Back to all examples.</a></p>
 
 <p>Who will win in this riveting game of <code class="js plain">Math.random()</code> vs <code class="js plain">Math.random()</code>?</p>
@@ -20,12 +21,41 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js" integrity="sha384-8Vi8VHwn3vjQ9eUHUxex3JSN/NFqUg3QbPyX8kWyb93+8AC/pPWTzj+nHtbC5bxD" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.2/chess.js" integrity="sha384-s3XgLpvmHyscVpijnseAmye819Ee3yaGa8NxstkJVyA6nuDFjt59u1QvuEl/mecz" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://studio.alan.app/web/lib/alan_lib.min.js"></script>
 <script>
-    // NOTE: this example uses the chess.js library:
-    // https://github.com/jhlywa/chess.js
-
+    var akobian = "z";
+    var numeral = 0;
+    var piece = "";
+    var alanBtnInstance = alanBtn({
+    key: "fa70b21c4c366352d2e1509cfa8734012e956eca572e1d8b807a3e2338fdd0dc/stage",
+    onCommand: function (commandData) {
+        if (commandData.command === "go:back") {
+        //call client code that will react on the received command
+        } 
+    },
+    rootEl: document.getElementById("alan-btn"),
+    });
     var board = null
     var game = new Chess()
+    var target_pos = akobian+String(numeral)
+
+    var value_of_piece = {
+        'rook': 'wR',
+        'knight': 'wN',
+        'bishop': 'wB',
+        'queen': 'wQ',
+        'king': 'wK',
+        'pawn': 'wP'
+    }
+
+    function get_position(piece, board_positions, target){
+        var piece_value = value_of_piece[piece]
+        for (piece_pos in board_positions){
+            if (board_positions[piece_pos] === piece_value){
+                makeMove(piece_pos, target)
+            }
+        }
+    }
 
     function onDragStart (source, piece, position, orientation) {
         // do not pick up pieces if the game is over
@@ -76,7 +106,9 @@
         onSnapEnd: onSnapEnd
     }
     board = Chessboard('myBoard', config)
-    // --- End Example JS ----------------------------------------------------------
+    var board_positions = board.position()
+    get_position(piece, board_positions, target_pos)
+
 </script>
 </body>
 </html>
