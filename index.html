@@ -10,13 +10,8 @@
 </head>
 <body>
 <div class="alan-btn"></div>
-<p><a href="examples#5002">&larr; Back to all examples.</a></p>
 
-<p>Who will win in this riveting game of <code class="js plain">Math.random()</code> vs <code class="js plain">Math.random()</code>?</p>
-
-<!--- Begin Example HTML ------------------------------------------------------>
-<div id="myBoard" style="width: 400px"></div>
-<!--- End Example HTML -------------------------------------------------------->
+<div id="myBoard" style="width: 800px"></div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js" integrity="sha384-8Vi8VHwn3vjQ9eUHUxex3JSN/NFqUg3QbPyX8kWyb93+8AC/pPWTzj+nHtbC5bxD" crossorigin="anonymous"></script>
@@ -32,6 +27,11 @@
         if (commandData.command === "go:back") {
         //call client code that will react on the received command
         } 
+        console.log(commandData)
+        piece = commandData.piece.toLowerCase()
+        var target_pos = commandData.akobian.toLowerCase() + commandData.numeral
+        var board_positions = board.position()
+        move_position(piece, board_positions, target_pos)
     },
     rootEl: document.getElementById("alan-btn"),
     });
@@ -48,7 +48,7 @@
         'pawn': 'wP'
     }
 
-    function get_position(piece, board_positions, target){
+    function move_position(piece, board_positions, target){
         var piece_value = value_of_piece[piece]
         for (piece_pos in board_positions){
             if (board_positions[piece_pos] === piece_value){
@@ -106,8 +106,7 @@
         onSnapEnd: onSnapEnd
     }
     board = Chessboard('myBoard', config)
-    var board_positions = board.position()
-    get_position(piece, board_positions, target_pos)
+    
 
 </script>
 </body>
